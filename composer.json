@@ -1,5 +1,6 @@
 {
     "name": "php-arsenal/symfony-request-param-bagger",
+    "description": "Collects sent parameters from Symfony Request and outputs an array.",
     "license": "MIT",
     "autoload": {
         "psr-4": {
