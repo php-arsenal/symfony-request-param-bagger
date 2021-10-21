@@ -13,5 +13,10 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "run-tests": "vendor/bin/phpunit --no-coverage",
+        "run-coverage": "vendor/bin/phpunit --coverage-clover tests/_output/coverage.xml",
+        "run-coverage-text": "vendor/bin/phpunit --coverage-text=tests/_output/coverage.txt && cat tests/_output/coverage.txt"
     }
 }
