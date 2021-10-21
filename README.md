@@ -9,6 +9,16 @@ Features:
 
 ## Usage 
 
+Request example
+```json 
+{
+    "type": "gold",
+    "size": "20",
+    "amount": "1.23"
+}
+```
+
+Parse example
 ```php 
 <?php 
     use PhpArsenal\SymfonyRequestParamBagger\RequestParamBagger;
@@ -32,4 +42,16 @@ Features:
         var_dump($params);
         
         // ...
+```
+
+Output
+```text
+array(3) {
+  ["type"]=>
+  string(4) "gold"
+  ["size"]=>
+  int(20)
+  ["amount"]=>
+  float(1.23)
+}
 ```
