@@ -40,11 +40,11 @@ class RequestParamBagger
                 throw new \Exception(sprintf('Param `%s` expected to be `%s` but `array` was given.', $paramKey, $paramType));
             } elseif ('string' === $paramType) {
                 $paramValue = (string)$paramValue;
-            } elseif ('int' === $paramType) {
+            } elseif (in_array($paramType, ['int', 'integer'])) {
                 $paramValue = (int)$paramValue;
             } elseif ('float' === $paramType) {
                 $paramValue = (float)$paramValue;
-            } elseif ('bool' === $paramType) {
+            } elseif (in_array($paramType, ['bool', 'boolean'])) {
                 $paramValue = (bool)$paramValue;
             }
         }
