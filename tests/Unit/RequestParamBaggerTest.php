@@ -133,6 +133,69 @@ class RequestParamBaggerTest extends TestCase
                 [],
                 'Param `contract_term` expected to be `int` but `array` was given.',
             ],
+            [
+                [
+                    'attributes' => [
+                        'first_array' => ['some_data'],
+                    ],
+                    'defaultParams' => [
+                        'first_array' => [],
+                        'second_array' => []
+                    ],
+                    'paramTypes' => [
+                        'first_array' => 'array',
+                        'second_array' => 'array',
+                    ]
+                ],
+                [
+                    'first_array' => ['some_data'],
+                    'second_array' => [],
+                ]
+            ],
+            [
+                [
+                    'attributes' => [
+                        'parent_array' => [
+                            [
+                                'id' => 'kj1234kj12h34',
+                                'price' => '12.44',
+                                'contract_term' => '12'
+                            ],
+                            [
+                                'id' => '23442352435',
+                                'price' => '46.71',
+                                'contract_term' => '24'
+                            ]
+                        ],
+                    ],
+                    'defaultParams' => [
+                        'parent_array' => [],
+                    ],
+                    'paramTypes' => [
+                        'parent_array' => [
+                            '!children' => [
+                                'id' => 'string',
+                                'price' => 'float',
+                                'contract_term' => 'int'
+                            ]
+                        ],
+                    ]
+                ],
+                [
+                    'parent_array' => [
+                        [
+                            'id' => 'kj1234kj12h34',
+                            'price' => 12.44,
+                            'contract_term' => 12,
+                        ],
+                        [
+                            'id' => '23442352435',
+                            'price' => 46.71,
+                            'contract_term' => 24,
+                        ]
+                    ],
+                ]
+            ]
         ];
     }
 

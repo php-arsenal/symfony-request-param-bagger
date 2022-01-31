@@ -29,6 +29,12 @@ class RequestParamBagger
 
             if (!$paramType) {
                 continue;
+            } elseif (is_array($paramValue) && is_array($paramType) && isset($paramType['!children'])) {
+                $paramChildType = $paramType['!children'];
+                foreach($paramValue as &$paramChildValue) {
+                    static::cast($paramChildValue, $paramChildType);
+                }
+                continue;
             } elseif (is_array($paramValue) && is_array($paramType)) {
                 static::cast($paramValue, $paramType);
                 continue;
@@ -36,7 +42,7 @@ class RequestParamBagger
 
             if ($paramValue === null) {
                 continue;
-            } elseif (is_array($paramValue) && 'array' !== $paramType) {
+            } elseif (is_array($paramValue) && $paramType !== 'array') {
                 throw new \Exception(sprintf('Param `%s` expected to be `%s` but `array` was given.', $paramKey, $paramType));
             } elseif ('string' === $paramType) {
                 $paramValue = (string)$paramValue;
