@@ -159,7 +159,6 @@ class RequestParamBaggerTest extends TestCase
                             [
                                 'id' => 'kj1234kj12h34',
                                 'price' => '12.44',
-                                'contract_term' => '12'
                             ],
                             [
                                 'id' => '23442352435',
@@ -169,11 +168,17 @@ class RequestParamBaggerTest extends TestCase
                         ],
                     ],
                     'defaultParams' => [
-                        'parent_array' => [],
+                        'parent_array' => [
+                            '_children' => [
+                                'id' => null,
+                                'price' => null,
+                                'contract_term' => 12
+                            ]
+                        ],
                     ],
                     'paramTypes' => [
                         'parent_array' => [
-                            '!children' => [
+                            '_children' => [
                                 'id' => 'string',
                                 'price' => 'float',
                                 'contract_term' => 'int'
