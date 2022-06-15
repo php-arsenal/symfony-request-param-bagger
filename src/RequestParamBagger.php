@@ -13,6 +13,7 @@ class RequestParamBagger
             $request->request->all(),
             $request->query->all(),
             $request->attributes->all(),
+            $request->headers->get('Content-Type') === 'application/json' && is_string($request->getContent()) ? (json_decode($request->getContent(), true) ?: []) : []
         );
 
         static::setDefaultValues($params, $defaultParams);
