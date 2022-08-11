@@ -29,6 +29,9 @@ class RequestParamBagger
             if(!isset($params[$paramKey])) {
                 $params[$paramKey] = $defaultParam;
             }
+            else if(is_array($params[$paramKey]) && is_array($defaultParam) && !isset($defaultParam['_children'])) {
+                static::setDefaultValues($params[$paramKey], $defaultParam);
+            }
             else if(is_array($params[$paramKey]) && is_array($defaultParam) && isset($defaultParam['_children'])) {
                 $defaultChildParams = $defaultParam['_children'];
                 foreach($params[$paramKey] as &$paramChildValue) {

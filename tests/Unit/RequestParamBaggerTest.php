@@ -200,6 +200,95 @@ class RequestParamBaggerTest extends TestCase
                         ]
                     ],
                 ]
+            ],
+            [ // double nested children
+                [
+                    'attributes' => [
+                        'data' => [
+                            'parent_array' => [
+                                [
+                                    'id' => 'kj1234kj12h34',
+                                    'price_plans' => [
+                                        [
+                                            'name' => 'Silver',
+                                            'price' => '9.99',
+                                            'sla' => 'A'
+                                        ],
+                                        [
+                                            'name' => 'Gold',
+                                            'price' => '19.99',
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    'id' => '23442352435',
+                                    'contract_term' => '24'
+                                ]
+                            ],
+                        ]
+                    ],
+                    'defaultParams' => [
+                        'data' => [
+                            'parent_array' => [
+                                '_children' => [
+                                    'id' => null,
+                                    'price_plans' => [
+                                        '_children' => [
+                                            'name' => null,
+                                            'price' => null,
+                                            'sla' => '-'
+                                        ],
+                                    ],
+                                    'contract_term' => 12
+                                ]
+                            ],
+                        ]
+                    ],
+                    'paramTypes' => [
+                        'data' => [
+                            'parent_array' => [
+                                '_children' => [
+                                    'id' => 'string',
+                                    'price_plans' => [
+                                        '_children' => [
+                                            'name' => 'string',
+                                            'price' => 'float',
+                                            'sla' => 'string'
+                                        ],
+                                    ],
+                                    'contract_term' => 'int'
+                                ]
+                            ],
+                        ]
+                    ]
+                ],
+                [
+                    'data' => [
+                        'parent_array' => [
+                            [
+                                'id' => 'kj1234kj12h34',
+                                'price_plans' => [
+                                    [
+                                        'name' => 'Silver',
+                                        'price' => 9.99,
+                                        'sla' => 'A'
+                                    ],
+                                    [
+                                        'name' => 'Gold',
+                                        'price' => 19.99,
+                                        'sla' => '-'
+                                    ]
+                                ],
+                                'contract_term' => 12,
+                            ],
+                            [
+                                'id' => '23442352435',
+                                'contract_term' => 24,
+                                'price_plans' => [],
+                            ]
+                        ],
+                    ]
+                ]
             ]
         ];
     }
