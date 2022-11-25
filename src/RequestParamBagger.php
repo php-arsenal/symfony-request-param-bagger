@@ -15,7 +15,11 @@ class RequestParamBagger
             $request->attributes->all(),
             $request->headers->get('Content-Type') === 'application/json' && is_string($request->getContent()) ? (json_decode($request->getContent(), true) ?: []) : []
         );
-
+        
+        return static::buildFromArray($params, $defaultParams, $paramTypes);
+    }
+    
+    public static function buildFromArray(array $params, array $defaultParams = [], array $paramTypes = []): array {
         static::setDefaultValues($params, $defaultParams);
 
         static::unsetPrivate($params);
