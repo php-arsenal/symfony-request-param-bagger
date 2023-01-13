@@ -289,6 +289,37 @@ class RequestParamBaggerTest extends TestCase
                         ],
                     ]
                 ]
+            ],
+            [ // direct array
+                [
+                    'attributes' => [
+                        [
+                            'id' => '123',
+                            'approved_for_sale' => 1,
+                        ],
+                    ],
+                    'defaultParams' => [
+                        '_children' => [
+                            'id' => null,
+                            'approved_for_sale' => null,
+                            'mrc' => null,
+                        ]
+                    ],
+                    'paramTypes' => [
+                        '_children' => [
+                            'id' => 'string',
+                            'approved_for_sale' => 'bool',
+                            'mrc' => 'float',
+                        ]
+                    ]
+                ],
+                [
+                    [
+                        'id' => '123',
+                        'approved_for_sale' => true,
+                        'mrc' => null,
+                    ],
+                ]
             ]
         ];
     }
@@ -296,12 +327,15 @@ class RequestParamBaggerTest extends TestCase
     /**
      * @dataProvider inputOutputParams
      */
-    public function testBuild(array $inputParams, array $outputParams, ?string $expectedException = null): void
+    public function testBuild(array $inputParams, array $expectedParams, ?string $expectedException = null): void
     {
         $request = new Request([], [], $inputParams['attributes']);
         if ($expectedException) {
             $this->expectErrorMessage($expectedException);
         }
-        $this->assertSame($outputParams, RequestParamBagger::build($request, $inputParams['defaultParams'], $inputParams['paramTypes']));
+
+        $actualParams = RequestParamBagger::build($request, $inputParams['defaultParams'], $inputParams['paramTypes']);
+
+        $this->assertSame($expectedParams, $actualParams);
     }
 }

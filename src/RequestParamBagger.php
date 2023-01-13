@@ -25,8 +25,15 @@ class RequestParamBagger
 
     private static function setDefaultValues(array &$params, array $defaultParams): void
     {
+        if (count($defaultParams) === 1 && isset($defaultParams['_children'])) {
+            $defaultChildParams = $defaultParams['_children'];
+            foreach($params as &$paramChildValue) {
+                static::setDefaultValues($paramChildValue, $defaultChildParams);
+            }
+        }
+
         foreach ($defaultParams as $paramKey => $defaultParam) {
-            if(!isset($params[$paramKey])) {
+            if(!isset($params[$paramKey]) && $paramKey) {
                 $params[$paramKey] = $defaultParam;
             }
             else if(is_array($params[$paramKey]) && is_array($defaultParam) && !isset($defaultParam['_children'])) {
@@ -37,7 +44,6 @@ class RequestParamBagger
                 foreach($params[$paramKey] as &$paramChildValue) {
                     static::setDefaultValues($paramChildValue, $defaultChildParams);
                 }
-                continue;
             }
         }
     }
@@ -57,6 +63,13 @@ class RequestParamBagger
 
     private static function cast(array &$params, array $paramTypes): array
     {
+        if (count($paramTypes) === 1 && isset($paramTypes['_children'])) {
+            $defaultChildTypes = $paramTypes['_children'];
+            foreach($params as &$paramChildValue) {
+                static::cast($paramChildValue, $defaultChildTypes);
+            }
+        }
+
         foreach ($params as $paramKey => &$paramValue) {
             $paramType = $paramTypes[$paramKey] ?? null;
 
