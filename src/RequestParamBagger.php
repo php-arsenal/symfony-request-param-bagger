@@ -9,11 +9,9 @@ class RequestParamBagger
     public static function build(Request $request, array $defaultParams = [], array $paramTypes = []): array
     {
         $params = array_replace_recursive(
-            $defaultParams,
             $request->request->all(),
             $request->query->all(),
             $request->attributes->all(),
-            $request->headers->get('Content-Type') === 'application/json' && is_string($request->getContent()) ? (json_decode($request->getContent(), true) ?: []) : []
         );
         
         return static::buildFromArray($params, $defaultParams, $paramTypes);
