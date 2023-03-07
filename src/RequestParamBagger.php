@@ -103,7 +103,7 @@ class RequestParamBagger
             } elseif ('float' === $paramType) {
                 $paramValue = (float)$paramValue;
             } elseif (in_array($paramType, ['bool', 'boolean'])) {
-                $paramValue = (bool)$paramValue;
+                $paramValue = $paramValue === 'true' || $paramValue === '1' || $paramValue === 1 || $paramValue === true;
             }
         }
 
